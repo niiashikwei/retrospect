@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Retrospect · delivery dashboard</title>
+<style>
+  .viz-root {
+    color-scheme: light;
+    --surface-0: #f5f4f1;
+    --surface-1: #fcfcfb;
+    --text-primary: #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted: #77766f;
+    --rule: #e2e1dc;
+    --grid: #ecebe7;
+    --series-1: #2a78d6;
+    --series-2: #eb6834;
+    --good: #0ca30c;
+    --good-text: #006300;
+    --warning: #fab219;
+    --critical: #d03b3b;
+    --seq-0: #f0efec;
+    --seq-1: #cde2fb; --seq-2: #9ec5f4; --seq-3: #6da7ec; --seq-4: #3987e5; --seq-5: #256abf; --seq-6: #184f95; --seq-7: #0d366b;
+  }
+  @media (prefers-color-scheme: dark) {
+    .viz-root {
+      color-scheme: dark;
+      --surface-0: #121211;
+      --surface-1: #1a1a19;
+      --text-primary: #f0efec;
+      --text-secondary: #c3c2b7;
+      --text-muted: #96958c;
+      --rule: #2e2e2b;
+      --grid: #262624;
+      --series-1: #3987e5;
+      --series-2: #d95926;
+      --good-text: #3ec43e;
+      --seq-0: #262624;
+      --seq-1: #104281; --seq-2: #184f95; --seq-3: #1c5cab; --seq-4: #256abf; --seq-5: #3987e5; --seq-6: #6da7ec; --seq-7: #b7d3f6;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--surface-0); color: var(--text-primary); font: 14px/1.45 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 24px 20px 64px; }
+  header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; margin-bottom: 16px; }
+  h1 { font-size: 22px; margin: 0; letter-spacing: -0.01em; }
+  h2 { font-size: 15px; margin: 0 0 4px; }
+  .sub { color: var(--text-secondary); font-size: 13px; }
+  .muted { color: var(--text-muted); }
+  .live { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-secondary); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--good); }
+  .dot.stale { background: var(--warning); }
+  .banner { background: var(--surface-1); border: 1px solid var(--rule); border-left: 4px solid var(--warning); padding: 10px 14px; border-radius: 8px; margin-bottom: 16px; font-size: 13px; }
+  .grid { display: grid; gap: 16px; grid-template-columns: repeat(12, 1fr); }
+  .card { background: var(--surface-1); border: 1px solid var(--rule); border-radius: 12px; padding: 16px; min-width: 0; }
+  .span-12 { grid-column: span 12; } .span-8 { grid-column: span 8; } .span-6 { grid-column: span 6; } .span-4 { grid-column: span 4; }
+  @media (max-width: 860px) { .span-8, .span-6, .span-4 { grid-column: span 12; } }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; }
+  .tile .label { font-size: 12px; color: var(--text-secondary); }
+  .tile .value { font-size: 28px; font-weight: 650; letter-spacing: -0.02em; margin-top: 2px; font-variant-numeric: tabular-nums; }
+  .tile .delta { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+  .delta.better { color: var(--good-text); }
+  svg { display: block; width: 100%; height: auto; overflow: visible; }
+  svg text { fill: var(--text-secondary); font-size: 11px; font-family: inherit; }
+  .axis line, .gridline { stroke: var(--grid); }
+  .baseline { stroke: var(--rule); }
+  .legend { display: flex; gap: 14px; font-size: 12px; color: var(--text-secondary); margin: 4px 0 8px; flex-wrap: wrap; }
+  .swatch { display: inline-block; width: 12px; height: 3px; border-radius: 2px; vertical-align: middle; margin-right: 6px; }
+  .swatch.box { height: 10px; width: 10px; border-radius: 2px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; font-weight: 600; color: var(--text-secondary); font-size: 12px; border-bottom: 1px solid var(--rule); padding: 6px 8px; }
+  td { border-bottom: 1px solid var(--grid); padding: 7px 8px; vertical-align: top; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .scroll { overflow-x: auto; }
+  .pill { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; white-space: nowrap; }
+  .pill i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .tip { position: fixed; pointer-events: none; background: var(--text-primary); color: var(--surface-1); font-size: 12px; padding: 6px 8px; border-radius: 6px; opacity: 0; transition: opacity .08s; z-index: 10; max-width: 260px; }
+  .hm-cell:hover, .hm-cell:focus { stroke: var(--text-primary); stroke-width: 1.5; outline: none; }
+  .empty { color: var(--text-muted); font-size: 13px; padding: 12px 0; }
+  footer { margin-top: 24px; font-size: 12px; color: var(--text-muted); }
+  a { color: var(--series-1); }
+</style>
+</head>
+<body class="viz-root">
+<div class="wrap">
+  <header>
+    <h1>Retrospect</h1>
+    <span class="sub" id="repos">Loading…</span>
+    <span class="live" id="live" aria-live="polite"><span class="dot" id="live-dot"></span><span id="live-text">connecting</span></span>
+  </header>
+  <div class="banner" id="sample-banner" hidden>Sample data. This dashboard switches to real numbers after the first collection run.</div>
+
+  <section class="tiles" id="panel-summary" aria-label="Headline numbers"></section>
+
+  <div class="grid" style="margin-top:16px">
+    <section class="card span-8" id="panel-timeseries">
+      <h2>Critical-path time per run</h2>
+      <div class="sub">Weekly median and 90th percentile. Dashed lines mark adopted changes.</div>
+      <div class="legend"><span><span class="swatch" style="background:var(--series-1)"></span>Median</span><span><span class="swatch" style="background:var(--series-2)"></span>90th percentile</span></div>
+      <div id="chart-timeseries"></div>
+    </section>
+    <section class="card span-4" id="panel-savings">
+      <h2>Net developer hours saved</h2>
+      <div class="sub">Cumulative, after the agent's own overhead.</div>
+      <div id="chart-savings" style="margin-top:12px"></div>
+    </section>
+
+    <section class="card span-12" id="panel-heatmap">
+      <h2>Where the bottlenecks are, and where they have been</h2>
+      <div class="sub">Minutes each stage added to the critical path, per week. Darker means more waiting.</div>
+      <div class="scroll" id="chart-heatmap" style="margin-top:12px"></div>
+    </section>
+
+    <section class="card span-6" id="panel-where">
+      <h2>Where time goes now</h2>
+      <div class="sub">Average critical-path seconds per run, last 7 days.</div>
+      <div id="chart-where" style="margin-top:12px"></div>
+    </section>
+    <section class="card span-6" id="panel-bottlenecks">
+      <h2>Ranked bottlenecks</h2>
+      <div class="sub">Last 28 days, minutes of waiting per week.</div>
+      <div class="scroll" id="table-bottlenecks"></div>
+    </section>
+
+    <section class="card span-12" id="panel-decisions">
+      <h2>Decision log</h2>
+      <div class="sub">What it found, what it decided, why, and the numbers before and after.</div>
+      <div class="scroll" id="table-decisions"></div>
+    </section>
+
+    <section class="card span-8" id="panel-backlog">
+      <h2>Backlog</h2>
+      <div class="sub">Top items by score = minutes saved × confidence ÷ (effort × (1 + risk)).</div>
+      <div class="scroll" id="table-backlog"></div>
+    </section>
+    <section class="card span-4" id="panel-agent">
+      <h2>Agent health</h2>
+      <div class="sub">How well Retrospect is doing its own job.</div>
+      <div id="agent-health"></div>
+    </section>
+
+    <section class="card span-6" id="panel-requirements">
+      <h2>Requirements</h2>
+      <div class="sub">Every active acceptance criterion must be proven by a passing test.</div>
+      <div id="requirements"></div>
+    </section>
+    <section class="card span-6" id="panel-flaky">
+      <h2>Flaky tests</h2>
+      <div class="sub">Passed and failed on the same commit.</div>
+      <div class="scroll" id="table-flaky"></div>
+    </section>
+  </div>
+  <footer>Updates every 60 seconds from <code>dashboard.json</code>. <span id="generated"></span></footer>
+</div>
+<div class="tip" id="tip" role="tooltip"></div>
+
+<script>
+const REFRESH_MS = 60000;
+const NS = 'http://www.w3.org/2000/svg';
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+const fmtSec = (v) => { if (v == null) return '–'; const s = Math.round(v); return s >= 3600 ? `${(s / 3600).toFixed(1)} h` : s >= 60 ? `${Math.floor(s / 60)}m ${String(s % 60).padStart(2, '0')}s` : `${s}s`; };
+const fmtNum = (n, d = 1) => n == null ? '–' : Number(n).toLocaleString(undefined, { maximumFractionDigits: d });
+const fmtWeek = (iso) => new Date(iso + 'T00:00:00Z').toLocaleDateString(undefined, { month: 'short', day: 'numeric', timeZone: 'UTC' });
+const css = (name) => getComputedStyle(document.body).getPropertyValue(name).trim();
+
+function el(tag, attrs = {}, parent) {
+  const n = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+  if (parent) parent.appendChild(n);
+  return n;
+}
+function text(parent, x, y, str, attrs = {}) { const t = el('text', { x, y, ...attrs }, parent); t.textContent = str; return t; }
+function widthOf(target) { return Math.max(300, Math.floor(target.clientWidth || 600)); }
+function niceMax(v) { if (v <= 0) return 1; const p = 10 ** Math.floor(Math.log10(v)); const m = v / p; return (m <= 1 ? 1 : m <= 2 ? 2 : m <= 5 ? 5 : 10) * p; }
+
+const tip = $('tip');
+function showTip(evt, html) {
+  tip.innerHTML = html; tip.style.opacity = 1;
+  const x = Math.min(evt.clientX + 12, window.innerWidth - tip.offsetWidth - 8);
+  tip.style.left = `${x}px`; tip.style.top = `${evt.clientY + 12}px`;
+}
+function hideTip() { tip.style.opacity = 0; }
+
+function tiles(d) {
+  const s = d.summary;
+  const items = [
+    { label: 'Net hours saved this week', value: fmtNum(s.netHoursSavedPerWeek), delta: `${fmtNum(s.grossHoursSavedPerWeek)} h gross, before overhead` },
+    { label: 'Net hours saved, all time', value: fmtNum(s.netHoursSavedAllTime), delta: `${fmtNum(s.runsAnalysed, 0)} runs analysed` },
+    { label: 'Critical path, median', value: fmtSec(s.criticalPathP50Sec.now), delta: deltaText(s.criticalPathP50Sec, fmtSec, true), better: s.criticalPathP50Sec.now < s.criticalPathP50Sec.baseline },
+    { label: 'Critical path, 90th pct', value: fmtSec(s.criticalPathP90Sec.now), delta: deltaText(s.criticalPathP90Sec, fmtSec, true), better: s.criticalPathP90Sec.now < s.criticalPathP90Sec.baseline },
+    { label: 'Line coverage', value: s.coverage.now == null ? '–' : `${fmtNum(s.coverage.now)}%`, delta: s.coverage.baseline == null ? 'not reported yet' : `${fmtNum(s.coverage.baseline)}% at start · held`, better: s.coverage.now >= s.coverage.baseline },
+    { label: 'Runner minutes, last 7 days', value: fmtNum(s.computeMinutesPerWeek, 0), delta: 'compute cost, separate from wait time' },
+  ];
+  $('panel-summary').innerHTML = items.map((t) => `<div class="card tile"><div class="label">${esc(t.label)}</div><div class="value">${esc(t.value)}</div><div class="delta${t.better ? ' better' : ''}">${esc(t.delta)}</div></div>`).join('');
+}
+function deltaText(pair, fmt, lowerIsBetter) {
+  if (pair.baseline == null || pair.now == null) return 'baseline after first week';
+  const pct = Math.round(((pair.now - pair.baseline) / pair.baseline) * 100);
+  const word = pct === 0 ? 'no change' : (pct < 0) === lowerIsBetter ? `${Math.abs(pct)}% faster` : `${Math.abs(pct)}% slower`;
+  return `from ${fmt(pair.baseline)} at start · ${word}`;
+}
+
+function lineChart(target, rows, series, opts = {}) {
+  target.innerHTML = '';
+  if (rows.length === 0) { target.innerHTML = '<div class="empty">No runs collected yet.</div>'; return; }
+  const W = widthOf(target), H = opts.height ?? 260, L = 52, R = opts.labels === false ? 16 : 56, T = 12, B = 28;
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'img', 'aria-label': opts.label ?? 'line chart' }, target);
+  const values = rows.flatMap((r) => series.map((s) => r[s.key]));
+  const step = niceMax((Math.max(...values, 0) - Math.min(0, ...values)) / 4 || 1);
+  const min = Math.floor(Math.min(0, ...values) / step) * step;
+  const max = Math.max(min + step, Math.ceil((Math.max(...values) * 1.02) / step) * step);
+  const x = (i) => L + (rows.length === 1 ? (W - L - R) / 2 : (i / (rows.length - 1)) * (W - L - R));
+  const y = (v) => T + (1 - (v - min) / (max - min)) * (H - T - B);
+  for (let v = min; v <= max + step / 2; v += step) {
+    el('line', { x1: L, x2: W - R, y1: y(v), y2: y(v), class: 'gridline' }, svg);
+    text(svg, L - 8, y(v) + 4, opts.fmt(v), { 'text-anchor': 'end' });
+  }
+  const every = Math.max(1, Math.ceil(rows.length / 8));
+  rows.forEach((r, i) => { if (i % every === 0 || i === rows.length - 1) text(svg, x(i), H - 8, fmtWeek(r.period), { 'text-anchor': 'middle' }); });
+  el('line', { x1: L, x2: W - R, y1: y(0), y2: y(0), class: 'baseline' }, svg);
+  for (const m of opts.markers ?? []) {
+    const i = rows.findIndex((r) => r.period >= m.period);
+    if (i < 0) continue;
+    el('line', { x1: x(i), x2: x(i), y1: T, y2: H - B, stroke: css('--text-muted'), 'stroke-dasharray': '3 4', 'stroke-width': 1 }, svg);
+  }
+  const labelY = series.map((s) => y(rows.at(-1)[s.key]) + 4);
+  for (let a = 0; a < labelY.length; a++) for (let b = a + 1; b < labelY.length; b++) {
+    if (Math.abs(labelY[a] - labelY[b]) < 13) { const mid = (labelY[a] + labelY[b]) / 2, up = labelY[a] <= labelY[b]; labelY[a] = mid + (up ? -7 : 7); labelY[b] = mid + (up ? 7 : -7); }
+  }
+  for (const [si, s] of series.entries()) {
+    const d = rows.map((r, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)} ${y(r[s.key]).toFixed(1)}`).join('');
+    el('path', { d, fill: 'none', stroke: css(s.color), 'stroke-width': 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, svg);
+    const last = rows.at(-1);
+    el('circle', { cx: x(rows.length - 1), cy: y(last[s.key]), r: 4, fill: css(s.color), stroke: css('--surface-1'), 'stroke-width': 2 }, svg);
+    if (s.label) text(svg, x(rows.length - 1) + 8, labelY[si], s.label, { 'font-weight': 600 });
+  }
+  const cross = el('line', { y1: T, y2: H - B, stroke: css('--text-muted'), 'stroke-width': 1, opacity: 0 }, svg);
+  const hit = el('rect', { x: L, y: T, width: W - L - R, height: H - T - B, fill: 'transparent' }, svg);
+  hit.addEventListener('mousemove', (e) => {
+    const box = svg.getBoundingClientRect();
+    const px = ((e.clientX - box.left) / box.width) * W;
+    const i = Math.max(0, Math.min(rows.length - 1, Math.round(((px - L) / (W - L - R)) * (rows.length - 1))));
+    cross.setAttribute('x1', x(i)); cross.setAttribute('x2', x(i)); cross.setAttribute('opacity', 1);
+    const r = rows[i];
+    const marker = (opts.markers ?? []).filter((m) => rows.findIndex((q) => q.period >= m.period) === i).map((m) => `<br>▸ ${esc(m.label)}`).join('');
+    showTip(e, `<b>Week of ${fmtWeek(r.period)}</b><br>${series.map((s) => `${esc(s.name)}: ${opts.fmt(r[s.key])}`).join('<br>')}${r.runs ? `<br>${r.runs} runs` : ''}${marker}`);
+  });
+  hit.addEventListener('mouseleave', () => { cross.setAttribute('opacity', 0); hideTip(); });
+}
+
+function heatmap(target, h) {
+  target.innerHTML = '';
+  if (!h.stages.length) { target.innerHTML = '<div class="empty">No runs collected yet.</div>'; return; }
+  const L = 96, T = 6, cellH = 28;
+  const cellW = Math.max(28, Math.min(120, (widthOf(target) - L - 8) / h.periods.length));
+  const W = L + cellW * h.periods.length + 8, H = T + cellH * h.stages.length + 26;
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'img', 'aria-label': 'Heat map of critical-path minutes by stage and week', style: `width:${W}px` }, target);
+  const max = Math.max(...h.minutes.flat(), 0.0001);
+  const steps = ['--seq-1', '--seq-2', '--seq-3', '--seq-4', '--seq-5', '--seq-6', '--seq-7'].map(css);
+  h.stages.forEach((stage, si) => {
+    text(svg, L - 10, T + si * cellH + cellH / 2 + 4, stage, { 'text-anchor': 'end', fill: css('--text-primary') });
+    h.periods.forEach((p, pi) => {
+      const v = h.minutes[si][pi];
+      const fill = v <= 0 ? css('--seq-0') : steps[Math.min(steps.length - 1, Math.floor((v / max) * steps.length))];
+      const r = el('rect', { x: L + pi * cellW + 1, y: T + si * cellH + 1, width: cellW - 2, height: cellH - 2, rx: 3, fill, class: 'hm-cell', tabindex: 0 }, svg);
+      const html = `<b>${esc(stage)}</b> · week of ${fmtWeek(p)}<br>${fmtNum(v)} min on the critical path`;
+      r.addEventListener('mousemove', (e) => showTip(e, html));
+      r.addEventListener('mouseleave', hideTip);
+      r.addEventListener('focus', () => { const b = r.getBoundingClientRect(); showTip({ clientX: b.right, clientY: b.top }, html); });
+      r.addEventListener('blur', hideTip);
+    });
+  });
+  const step = Math.max(1, Math.ceil(h.periods.length / 12));
+  h.periods.forEach((p, pi) => { if (pi % step === 0) text(svg, L + pi * cellW + cellW / 2, H - 6, fmtWeek(p), { 'text-anchor': 'middle' }); });
+  const legend = document.createElement('div');
+  legend.className = 'legend';
+  legend.innerHTML = `<span class="muted">0 min</span>${steps.map((c) => `<span class="swatch box" style="background:${c};margin:0"></span>`).join('')}<span class="muted">${fmtNum(max)} min</span>`;
+  legend.style.gap = '3px'; legend.style.alignItems = 'center';
+  target.appendChild(legend);
+}
+
+function bars(target, rows) {
+  target.innerHTML = '';
+  if (!rows.length) { target.innerHTML = '<div class="empty">No runs in the last 7 days.</div>'; return; }
+  const W = widthOf(target), rowH = 26, L = 92, R = 64, H = rows.length * rowH + 4;
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'img', 'aria-label': 'Average critical-path seconds per stage' }, target);
+  const max = Math.max(...rows.map((r) => r.sec));
+  const total = rows.reduce((a, r) => a + r.sec, 0);
+  rows.forEach((r, i) => {
+    const y = i * rowH + 4, w = Math.max(2, (r.sec / max) * (W - L - R));
+    text(svg, L - 10, y + 13, r.stage, { 'text-anchor': 'end', fill: css('--text-primary') });
+    const bar = el('rect', { x: L, y, width: w, height: 16, rx: 4, fill: css(i === 0 ? '--series-1' : '--seq-2') }, svg);
+    text(svg, L + w + 8, y + 13, fmtSec(r.sec));
+    const html = `<b>${esc(r.stage)}</b><br>${fmtSec(r.sec)} per run · ${Math.round((r.sec / total) * 100)}% of the critical path`;
+    bar.addEventListener('mousemove', (e) => showTip(e, html));
+    bar.addEventListener('mouseleave', hideTip);
+  });
+}
+
+function table(target, cols, rows, empty) {
+  if (!rows.length) { target.innerHTML = `<div class="empty">${esc(empty)}</div>`; return; }
+  target.innerHTML = `<table><thead><tr>${cols.map((c) => `<th class="${c.num ? 'num' : ''}">${esc(c.label)}</th>`).join('')}</tr></thead><tbody>${rows.map((r) => `<tr>${cols.map((c) => `<td class="${c.num ? 'num' : ''}">${c.html ? c.html(r) : esc(c.value(r))}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+}
+
+const VERDICT = {
+  adopt: ['Adopted', '--good'], reject: ['Rejected', '--critical'], inconclusive: ['Inconclusive', '--text-muted'],
+};
+const pill = (label, color) => `<span class="pill"><i style="background:var(${color})"></i>${esc(label)}</span>`;
+const TREND = { rising: '▲ rising', falling: '▼ falling', steady: '– steady' };
+const REQ = { validated: ['Validated', '--good'], failing: ['Failing', '--critical'], untested: ['Untested', '--warning'], planned: ['Planned', '--text-muted'] };
+
+function render(d) {
+  $('repos').textContent = d.repos.length ? `Watching ${d.repos.join(', ')}` : 'No repos collected yet';
+  $('sample-banner').hidden = d.source !== 'sample';
+  $('generated').textContent = `Last built ${new Date(d.generatedAt).toLocaleString()}.`;
+  tiles(d);
+  const markers = d.decisions.filter((x) => x.verdict === 'adopt').map((x) => ({ period: x.at.slice(0, 10), label: x.decision }));
+  lineChart($('chart-timeseries'), d.timeseries, [
+    { key: 'p50Sec', name: 'Median', color: '--series-1', label: 'Median' },
+    { key: 'p90Sec', name: '90th percentile', color: '--series-2', label: 'p90' },
+  ], { fmt: fmtSec, markers, label: 'Critical-path time per run by week' });
+  lineChart($('chart-savings'), d.savings, [{ key: 'netHours', name: 'Net hours saved', color: '--series-1' }], { fmt: (v) => `${fmtNum(v)} h`, height: 240, labels: false, label: 'Cumulative net hours saved' });
+  heatmap($('chart-heatmap'), d.heatmap);
+  bars($('chart-where'), d.whereTimeGoes);
+  table($('table-bottlenecks'), [
+    { label: 'Stage', value: (r) => r.stage },
+    { label: 'Min / week', num: true, value: (r) => fmtNum(r.minutesPerWeek) },
+    { label: 'Share', num: true, value: (r) => `${Math.round(r.shareOfCriticalPath * 100)}%` },
+    { label: 'Trend', value: (r) => TREND[r.trend] },
+  ], d.bottlenecks, 'No bottlenecks found yet.');
+  table($('table-decisions'), [
+    { label: 'Date', value: (r) => new Date(r.at).toLocaleDateString() },
+    { label: 'Finding', value: (r) => r.finding },
+    { label: 'Decision', html: (r) => r.prUrl ? `<a href="${esc(r.prUrl)}">${esc(r.decision)}</a>` : esc(r.decision) },
+    { label: 'Why', value: (r) => r.reason },
+    { label: 'Before', num: true, value: (r) => fmtSec(r.beforeSec) },
+    { label: 'After', num: true, value: (r) => fmtSec(r.afterSec) },
+    { label: 'Verdict', html: (r) => pill(...VERDICT[r.verdict]) },
+  ], d.decisions, 'No experiments yet. Decisions appear here with their before and after numbers.');
+  table($('table-backlog'), [
+    { label: 'Item', value: (r) => r.title },
+    { label: 'Stage', value: (r) => r.stage },
+    { label: 'Saves (min/wk)', num: true, value: (r) => fmtNum(r.expectedMinutesSavedPerWeek, 0) },
+    { label: 'Confidence', num: true, value: (r) => `${Math.round(r.confidence * 100)}%` },
+    { label: 'Score', num: true, value: (r) => fmtNum(r.score) },
+  ], d.backlog, 'The backlog fills once bottlenecks are diagnosed.');
+  const a = d.agentHealth;
+  $('agent-health').innerHTML = `<table><tbody>
+    <tr><td>Autonomy level</td><td class="num">${esc(a.autonomyLevel)}</td></tr>
+    <tr><td>Prediction error</td><td class="num">${a.predictionErrorPct == null ? '–' : `${fmtNum(a.predictionErrorPct, 0)}%`}</td></tr>
+    <tr><td>PR acceptance</td><td class="num">${a.prAcceptanceRate == null ? '–' : `${Math.round(a.prAcceptanceRate * 100)}%`}</td></tr>
+    <tr><td>Cost per adopted change</td><td class="num">${a.costPerAdoptedChangeUsd == null ? '–' : `$${fmtNum(a.costPerAdoptedChangeUsd, 2)}`}</td></tr>
+    <tr><td>Last self-retro</td><td class="num">${a.lastReflection ? esc(new Date(a.lastReflection).toLocaleDateString()) : 'not yet'}</td></tr>
+  </tbody></table>`;
+  const req = d.requirements;
+  if (!req) $('requirements').innerHTML = '<div class="empty">Traceability report not published yet.</div>';
+  else {
+    const counts = Object.entries(REQ).map(([k, [label, color]]) => pill(`${req.totals[k]} ${label.toLowerCase()}`, color)).join(' &nbsp; ');
+    $('requirements').innerHTML = `<p>${counts}</p>`;
+    const box = document.createElement('div'); box.className = 'scroll'; box.style.maxHeight = '420px'; box.style.overflowY = 'auto'; $('requirements').appendChild(box);
+    table(box, [
+      { label: 'Criterion', value: (r) => r.criterion },
+      { label: 'Then', value: (r) => r.then },
+      { label: 'Status', html: (r) => pill(...REQ[r.status]) },
+    ], req.rows, 'No requirements.');
+  }
+  table($('table-flaky'), [
+    { label: 'Test', value: (r) => `${r.suite} › ${r.name}` },
+    { label: 'Failures', num: true, value: (r) => r.failures },
+    { label: 'Passes', num: true, value: (r) => r.passes },
+  ], d.flakyTests, 'No flaky tests detected.');
+}
+
+let lastOk = 0, lastData = null, resizeTimer;
+window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => lastData && render(lastData), 150); });
+async function load() {
+  try {
+    const res = await fetch(`dashboard.json?ts=${Date.now()}`, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const d = await res.json();
+    if (d.schemaVersion !== 1) throw new Error(`unsupported schemaVersion ${d.schemaVersion}`);
+    lastData = d;
+    render(d);
+    lastOk = Date.now();
+    $('live-dot').classList.remove('stale');
+    $('live-text').textContent = `live · checked ${new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`;
+  } catch (err) {
+    $('live-dot').classList.add('stale');
+    $('live-text').textContent = lastOk ? `couldn't refresh (${err.message}); showing last data` : `couldn't load dashboard.json (${err.message})`;
+  }
+}
+load();
+setInterval(load, REFRESH_MS);
+</script>
+</body>
+</html>

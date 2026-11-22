@@ -1,0 +1,33 @@
+{
+  "id": "R-09",
+  "title": "Every speed-up is proven, not guessed",
+  "statement": "A change counts only after an A/B comparison over enough runs to beat CI noise.",
+  "status": "active",
+  "context": "experimentation",
+  "criteria": [
+    {
+      "id": "R-09.1",
+      "given": "fewer than 10 runs in either arm",
+      "when": "a verdict is reached",
+      "then": "the verdict is inconclusive"
+    },
+    {
+      "id": "R-09.2",
+      "given": "at least 10 runs per arm",
+      "when": "a verdict is reached",
+      "then": "adopt needs p < 0.05 and a median gain of at least 30 s and 5%"
+    },
+    {
+      "id": "R-09.3",
+      "given": "a significantly slower treatment",
+      "when": "a verdict is reached",
+      "then": "the verdict is reject"
+    },
+    {
+      "id": "R-09.4",
+      "given": "two samples",
+      "when": "the Mann-Whitney U test runs",
+      "then": "U and the tie-corrected p-value match known results"
+    }
+  ]
+}

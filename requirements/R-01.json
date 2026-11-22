@@ -1,0 +1,39 @@
+{
+  "id": "R-01",
+  "title": "Prioritised backlog of small batches",
+  "statement": "Retrospect keeps a ranked backlog of small, single-PR improvements to the delivery process.",
+  "status": "active",
+  "context": "backlog",
+  "criteria": [
+    {
+      "id": "R-01.1",
+      "given": "two opportunities",
+      "when": "they are scored",
+      "then": "the one with more expected minutes saved times confidence, per hour of effort and risk, ranks higher"
+    },
+    {
+      "id": "R-01.2",
+      "given": "an opportunity over 200 changed lines, or missing a hypothesis or target metric",
+      "when": "the backlog is prioritised",
+      "then": "it is left out of the ranking with a reason"
+    },
+    {
+      "id": "R-01.3",
+      "given": "a technique with a track record of successes and failures",
+      "when": "its confidence is computed",
+      "then": "confidence is the Beta(1,1) posterior mean, 0.5 with no history"
+    },
+    {
+      "id": "R-01.4",
+      "given": "a backlog with queued, in-progress and finished items",
+      "when": "it is prioritised",
+      "then": "only queued items are ranked, and ties are broken by id"
+    },
+    {
+      "id": "R-01.5",
+      "given": "invalid inputs (non-positive effort, confidence outside 0-1, negative risk or saving)",
+      "when": "an opportunity is scored",
+      "then": "scoring throws instead of producing a misleading number"
+    }
+  ]
+}

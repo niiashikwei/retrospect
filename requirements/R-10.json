@@ -1,0 +1,45 @@
+{
+  "id": "R-10",
+  "title": "Full test coverage and traceability on every change",
+  "statement": "Every change keeps 100% coverage and every active acceptance criterion proven by a passing test.",
+  "status": "active",
+  "context": "trace",
+  "criteria": [
+    {
+      "id": "R-10.1",
+      "given": "an active criterion with no passing test",
+      "when": "the trace check runs",
+      "then": "it fails and names the criterion"
+    },
+    {
+      "id": "R-10.2",
+      "given": "a test tagged with an unknown criterion",
+      "when": "the trace check runs",
+      "then": "it fails and names the test"
+    },
+    {
+      "id": "R-10.3",
+      "given": "a malformed or duplicated requirement",
+      "when": "the trace check runs",
+      "then": "it fails with the problem"
+    },
+    {
+      "id": "R-10.4",
+      "given": "the test runner configuration",
+      "when": "tests run",
+      "then": "lines, branches and functions must all be 100% covered on src/"
+    },
+    {
+      "id": "R-10.5",
+      "given": "a failing test for a criterion",
+      "when": "the trace check runs",
+      "then": "the criterion is marked failing"
+    },
+    {
+      "id": "R-10.6",
+      "given": "a finished trace",
+      "when": "the matrix is written",
+      "then": "reports/trace.json and reports/trace.md show every criterion's status"
+    }
+  ]
+}

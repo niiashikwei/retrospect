@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Dogfooding: a newer push makes the older run pointless, so cancel it.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: typecheck, test (100% coverage), trace
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Install type-checker (the only dev tools; no runtime dependencies)
+        run: npm install --no-save --no-package-lock typescript@6 @types/node@24
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Unit, contract, property and integration tests with 100% coverage gate
+        run: npm test
+      - name: Requirements traceability
+        run: npm run trace
+      - name: Publish traceability matrix to the run summary
+        if: always()
+        run: test -f reports/trace.md && cat reports/trace.md >> "$GITHUB_STEP_SUMMARY" || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reports
+          path: reports/
+
+  repo-settings:
+    name: repo is public and protected
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check visibility
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          visibility=$(gh api "repos/${{ github.repository }}" --jq .visibility)
+          echo "visibility: $visibility"
+          test "$visibility" = "public"

@@ -1,0 +1,28 @@
+{
+  "id": "R-07",
+  "title": "Retrospects on itself daily",
+  "statement": "Retrospect applies its own skill to itself at least once a day and learns how to be a better agent, without loosening its own rules.",
+  "status": "active",
+  "context": "reflection",
+  "criteria": [
+    {
+      "id": "R-07.1",
+      "given": "the default configuration",
+      "when": "repos are resolved",
+      "then": "Retrospect watches its own repo"
+    },
+    {
+      "id": "R-07.2",
+      "given": "a day of agent activity",
+      "when": "the reflect loop runs",
+      "then": "a retro is written with prediction error, acceptance rate and cost, and at most one self-improvement is proposed",
+      "status": "planned"
+    },
+    {
+      "id": "R-07.3",
+      "given": "a change to guardrails, requirements, scoring or config",
+      "when": "ownership is checked",
+      "then": "CODEOWNERS requires the owner's review"
+    }
+  ]
+}

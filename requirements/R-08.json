@@ -1,0 +1,27 @@
+{
+  "id": "R-08",
+  "title": "Finds where the bottlenecks are and have been",
+  "statement": "Retrospect reconstructs each run's critical path and ranks the stages that cost the most waiting.",
+  "status": "active",
+  "context": "diagnosis",
+  "criteria": [
+    {
+      "id": "R-08.1",
+      "given": "the jobs of one run",
+      "when": "its critical path is computed",
+      "then": "it is the chain of jobs a developer waited on, with runner waits counted as queue time"
+    },
+    {
+      "id": "R-08.2",
+      "given": "critical paths over a window",
+      "when": "bottlenecks are ranked",
+      "then": "stages are ordered by minutes per week with their share and trend"
+    },
+    {
+      "id": "R-08.3",
+      "given": "test results across runs",
+      "when": "flaky tests are detected",
+      "then": "a test that passed and failed on the same commit is flagged"
+    }
+  ]
+}

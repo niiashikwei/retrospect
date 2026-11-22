@@ -1,0 +1,21 @@
+{
+  "id": "R-04",
+  "title": "Notion as a second brain",
+  "statement": "Backlog, experiments, playbook and retros are mirrored to Notion databases, with priority override and blocked status editable there.",
+  "status": "planned",
+  "context": "backlog",
+  "criteria": [
+    {
+      "id": "R-04.1",
+      "given": "a new opportunity, experiment, lesson or retro",
+      "when": "Notion sync runs",
+      "then": "it appears in the matching Notion database"
+    },
+    {
+      "id": "R-04.2",
+      "given": "a priority override set in Notion",
+      "when": "the backlog is prioritised",
+      "then": "the override wins over the computed score"
+    }
+  ]
+}

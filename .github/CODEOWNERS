@@ -1,0 +1,10 @@
+# Self-governance: the agent may propose changes to these paths, but only the owner can approve them.
+*                                 @OWNER
+/GUARDRAILS.md                    @OWNER
+/requirements/                    @OWNER
+/retrospect.config.json           @OWNER
+/scripts/test.mjs                 @OWNER
+/src/backlog/score.ts             @OWNER
+/src/experimentation/             @OWNER
+/src/trace/                       @OWNER
+/.github/                         @OWNER

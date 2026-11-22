@@ -1,0 +1,27 @@
+{
+  "id": "R-05",
+  "title": "Public repo on a personal GitHub account",
+  "statement": "The project lives in a public repo with an open licence and protected, human-owned rules.",
+  "status": "active",
+  "context": "repo",
+  "criteria": [
+    {
+      "id": "R-05.1",
+      "given": "the repo",
+      "when": "its files are checked",
+      "then": "it has an MIT LICENSE, a README and a CODEOWNERS file"
+    },
+    {
+      "id": "R-05.2",
+      "given": "a push or pull request",
+      "when": "CI runs",
+      "then": "it type-checks, runs every test with the coverage gate, and runs the traceability check"
+    },
+    {
+      "id": "R-05.3",
+      "given": "any agent workflow",
+      "when": "its triggers are checked",
+      "then": "none run on pull_request_target, so fork PRs never reach secrets"
+    }
+  ]
+}

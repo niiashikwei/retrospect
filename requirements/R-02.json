@@ -1,0 +1,45 @@
+{
+  "id": "R-02",
+  "title": "Monitors implementation, testing and resource use",
+  "statement": "Retrospect collects CI timings, test results, coverage and runner usage from the repos it watches.",
+  "status": "active",
+  "context": "telemetry",
+  "criteria": [
+    {
+      "id": "R-02.1",
+      "given": "completed GitHub Actions runs",
+      "when": "signals are collected",
+      "then": "each finished job becomes a signal with stage, queue time, duration and runner minutes"
+    },
+    {
+      "id": "R-02.2",
+      "given": "runs already collected, jobs not yet finished, or more than 100 runs",
+      "when": "signals are collected",
+      "then": "seen runs are skipped, unfinished jobs are ignored and results are paged"
+    },
+    {
+      "id": "R-02.3",
+      "given": "a JUnit XML report",
+      "when": "it is parsed",
+      "then": "every test case yields its suite, name, duration and outcome"
+    },
+    {
+      "id": "R-02.4",
+      "given": "an lcov tracefile",
+      "when": "it is parsed",
+      "then": "line and branch coverage percentages are summed across files"
+    },
+    {
+      "id": "R-02.5",
+      "given": "the GitHub API returns an error",
+      "when": "signals are collected",
+      "then": "the error is raised, never silently ignored"
+    },
+    {
+      "id": "R-02.6",
+      "given": "a job name",
+      "when": "its stage is resolved",
+      "then": "common names map to standard stages and per-repo overrides win"
+    }
+  ]
+}

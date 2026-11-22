@@ -1,0 +1,45 @@
+{
+  "id": "R-06",
+  "title": "Live dashboard of findings, decisions and savings",
+  "statement": "A public dashboard shows findings, decisions and reasons, before and after numbers, time saved, and a current and historical bottleneck heat map.",
+  "status": "active",
+  "context": "reporting",
+  "criteria": [
+    {
+      "id": "R-06.1",
+      "given": "collected signals",
+      "when": "dashboard.json is built",
+      "then": "it passes the versioned data contract the page relies on"
+    },
+    {
+      "id": "R-06.2",
+      "given": "runs across several weeks",
+      "when": "the heat map is built",
+      "then": "it has one row per stage, hottest first, and one column per week, so past and present bottlenecks show"
+    },
+    {
+      "id": "R-06.3",
+      "given": "recorded decisions",
+      "when": "dashboard.json is built",
+      "then": "each decision carries its finding, decision, reason and before and after numbers, newest first"
+    },
+    {
+      "id": "R-06.4",
+      "given": "adopted, rejected and inconclusive decisions and the agent overhead",
+      "when": "time saved is computed",
+      "then": "only adopted decisions count, on the critical path, net of overhead"
+    },
+    {
+      "id": "R-06.5",
+      "given": "the dashboard page",
+      "when": "it loads",
+      "then": "it has a panel for every section of dashboard.json and re-fetches it every 60 seconds"
+    },
+    {
+      "id": "R-06.6",
+      "given": "no real data yet",
+      "when": "the sample dashboard is built",
+      "then": "it runs through the same pipeline and is labelled as sample data"
+    }
+  ]
+}

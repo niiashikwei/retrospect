@@ -1,0 +1,11 @@
+{
+  "repos": ["self"],
+  "lookbackDays": 30,
+  "overheadHoursPerWeek": 0,
+  "autonomyLevel": "L0",
+  "stageOverrides": {
+    "verify": "unit",
+    "repo-settings": "other",
+    "collect": "other"
+  }
+}

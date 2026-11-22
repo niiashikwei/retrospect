@@ -1,0 +1,19 @@
+{
+  "name": "retrospect",
+  "version": "0.1.0",
+  "description": "A retrospection engine that keeps looking for ways to speed up delivery without lowering quality or test coverage.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "test": "node scripts/test.mjs",
+    "trace": "node --experimental-strip-types bin/trace.ts",
+    "typecheck": "tsc -p tsconfig.json",
+    "verify": "npm run typecheck && npm test && npm run trace",
+    "collect": "node --experimental-strip-types bin/retrospect.ts collect",
+    "report": "node --experimental-strip-types bin/retrospect.ts report",
+    "sample": "node --experimental-strip-types bin/retrospect.ts sample"
+  }
+}

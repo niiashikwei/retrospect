@@ -1,0 +1,39 @@
+{
+  "id": "R-03",
+  "title": "Never reduces quality or test coverage",
+  "statement": "No change Retrospect proposes may lower coverage, remove or weaken tests, or lower mutation score.",
+  "status": "active",
+  "context": "experimentation",
+  "criteria": [
+    {
+      "id": "R-03.1",
+      "given": "line or branch coverage before and after a change",
+      "when": "guardrails are checked",
+      "then": "a drop of more than 0.1 points fails"
+    },
+    {
+      "id": "R-03.2",
+      "given": "test counts before and after a change",
+      "when": "guardrails are checked",
+      "then": "fewer tests fails unless the PR declares that many exact duplicates"
+    },
+    {
+      "id": "R-03.3",
+      "given": "a diff that skips a test or removes an assertion in a test file",
+      "when": "guardrails are checked",
+      "then": "each offending line fails with its file and text"
+    },
+    {
+      "id": "R-03.4",
+      "given": "mutation scores before and after a change",
+      "when": "guardrails are checked",
+      "then": "a lower score fails; an unmeasured change is noted, not failed"
+    },
+    {
+      "id": "R-03.5",
+      "given": "a faster change that fails any guardrail",
+      "when": "a verdict is reached",
+      "then": "the verdict is reject, listing the failed guardrails"
+    }
+  ]
+}
