@@ -1,378 +1,102 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-26T16:56:53.056Z",
-  "source": "sample",
+  "generatedAt": "2026-11-26T16:57:24.769Z",
+  "source": "live",
   "repos": [
-    "sample/web-app"
+    "niiashikwei/retrospect"
   ],
   "summary": {
-    "netHoursSavedPerWeek": 3.8,
-    "netHoursSavedAllTime": 8.7,
-    "grossHoursSavedPerWeek": 4.3,
-    "computeMinutesPerWeek": 800,
+    "netHoursSavedPerWeek": 0,
+    "netHoursSavedAllTime": 0,
+    "grossHoursSavedPerWeek": 0,
+    "computeMinutesPerWeek": 3,
     "criticalPathP50Sec": {
-      "baseline": 1065.6,
-      "now": 766.7
+      "baseline": 18.5,
+      "now": 18.5
     },
     "criticalPathP90Sec": {
-      "baseline": 1126.3,
-      "now": 796
+      "baseline": 23.7,
+      "now": 23.7
     },
     "coverage": {
-      "baseline": 86.4,
-      "now": 87.39702380952382
+      "baseline": null,
+      "now": null
     },
-    "runsAnalysed": 336
+    "runsAnalysed": 2
   },
   "timeseries": [
     {
-      "period": "2026-09-28",
-      "runs": 20,
-      "p50Sec": 1065.6,
-      "p90Sec": 1126.3
-    },
-    {
-      "period": "2026-10-05",
-      "runs": 42,
-      "p50Sec": 1068,
-      "p90Sec": 1123.5
-    },
-    {
-      "period": "2026-10-12",
-      "runs": 42,
-      "p50Sec": 1043,
-      "p90Sec": 1172.6
-    },
-    {
-      "period": "2026-10-19",
-      "runs": 42,
-      "p50Sec": 995.7,
-      "p90Sec": 1122.8
-    },
-    {
-      "period": "2026-10-26",
-      "runs": 42,
-      "p50Sec": 937.6,
-      "p90Sec": 1006.9
-    },
-    {
-      "period": "2026-11-02",
-      "runs": 42,
-      "p50Sec": 932.9,
-      "p90Sec": 1082.2
-    },
-    {
-      "period": "2026-11-09",
-      "runs": 42,
-      "p50Sec": 856.2,
-      "p90Sec": 1010.8
-    },
-    {
-      "period": "2026-11-16",
-      "runs": 42,
-      "p50Sec": 750.6,
-      "p90Sec": 809.6
-    },
-    {
       "period": "2026-11-23",
-      "runs": 22,
-      "p50Sec": 766.7,
-      "p90Sec": 796
+      "runs": 2,
+      "p50Sec": 18.5,
+      "p90Sec": 23.7
     }
   ],
   "savings": [
     {
-      "period": "2026-09-28",
-      "netHours": -0.2
-    },
-    {
-      "period": "2026-10-05",
-      "netHours": -0.7
-    },
-    {
-      "period": "2026-10-12",
-      "netHours": -1.2
-    },
-    {
-      "period": "2026-10-19",
-      "netHours": -1.1
-    },
-    {
-      "period": "2026-10-26",
-      "netHours": -0.3
-    },
-    {
-      "period": "2026-11-02",
-      "netHours": 0.6
-    },
-    {
-      "period": "2026-11-09",
-      "netHours": 2.8
-    },
-    {
-      "period": "2026-11-16",
-      "netHours": 6.7
-    },
-    {
       "period": "2026-11-23",
-      "netHours": 10.5
+      "netHours": 0
     }
   ],
   "heatmap": {
     "granularity": "week",
     "periods": [
-      "2026-09-28",
-      "2026-10-05",
-      "2026-10-12",
-      "2026-10-19",
-      "2026-10-26",
-      "2026-11-02",
-      "2026-11-09",
-      "2026-11-16",
       "2026-11-23"
     ],
     "stages": [
-      "unit",
-      "e2e",
-      "build",
-      "install",
-      "queue",
-      "integration"
+      "other",
+      "typecheck",
+      "queue"
     ],
     "minutes": [
       [
-        141.4,
-        298.3,
-        289.4,
-        293.1,
-        297.4,
-        294.6,
-        153.3,
-        0,
-        0
+        0.3
       ],
       [
-        102.8,
-        210.6,
-        208.7,
-        208.6,
-        212.9,
-        210.2,
-        205.4,
-        210.6,
-        112
+        0.2
       ],
       [
-        38.7,
-        85.1,
-        84.2,
-        84.1,
-        82.4,
-        83.1,
-        86.1,
-        83.7,
-        44.5
-      ],
-      [
-        51.2,
-        105.3,
-        104.3,
-        66.5,
-        24.2,
-        24.8,
-        24.2,
-        24.1,
-        12.8
-      ],
-      [
-        24.4,
-        44,
-        57.2,
-        53,
-        43.5,
-        52.8,
-        54.4,
-        46.2,
-        26.2
-      ],
-      [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        81.5,
-        167,
-        88.8
+        0.1
       ]
     ]
   },
   "bottlenecks": [
     {
-      "stage": "e2e",
-      "minutesPerWeek": 210,
-      "shareOfCriticalPath": 0.35,
-      "trend": "steady"
-    },
-    {
-      "stage": "unit",
-      "minutesPerWeek": 147.3,
-      "shareOfCriticalPath": 0.246,
-      "trend": "falling"
-    },
-    {
-      "stage": "integration",
-      "minutesPerWeek": 84.3,
-      "shareOfCriticalPath": 0.141,
+      "stage": "other",
+      "minutesPerWeek": 0.1,
+      "shareOfCriticalPath": 0.541,
       "trend": "rising"
     },
     {
-      "stage": "build",
-      "minutesPerWeek": 84.1,
-      "shareOfCriticalPath": 0.14,
-      "trend": "steady"
-    },
-    {
       "stage": "queue",
-      "minutesPerWeek": 50,
-      "shareOfCriticalPath": 0.083,
-      "trend": "steady"
+      "minutesPerWeek": 0,
+      "shareOfCriticalPath": 0.216,
+      "trend": "rising"
     },
     {
-      "stage": "install",
-      "minutesPerWeek": 24.4,
-      "shareOfCriticalPath": 0.041,
-      "trend": "steady"
+      "stage": "typecheck",
+      "minutesPerWeek": 0,
+      "shareOfCriticalPath": 0.243,
+      "trend": "rising"
     }
   ],
   "whereTimeGoes": [
     {
-      "stage": "e2e",
-      "sec": 299.6
+      "stage": "other",
+      "sec": 10
     },
     {
-      "stage": "integration",
-      "sec": 239.4
-    },
-    {
-      "stage": "build",
-      "sec": 121.6
+      "stage": "typecheck",
+      "sec": 4.5
     },
     {
       "stage": "queue",
-      "sec": 72.1
-    },
-    {
-      "stage": "install",
-      "sec": 34.9
+      "sec": 4
     }
   ],
-  "decisions": [
-    {
-      "at": "2026-11-12T16:56:53.056Z",
-      "opportunityId": "OPP-003",
-      "finding": "unit tests are the largest stage at 420s, single runner",
-      "decision": "Shard unit tests across 3 runners, balanced by measured duration",
-      "reason": "Adopted: median 418s -> 161s over 10 vs 10 runs, p<0.001; same tests, coverage held",
-      "beforeSec": 418,
-      "afterSec": 161,
-      "runsPerWeek": 42,
-      "verdict": "adopt"
-    },
-    {
-      "at": "2026-11-02T16:56:53.056Z",
-      "opportunityId": "OPP-002",
-      "finding": "docker layer cache proposed for build",
-      "decision": "Rejected Docker layer caching",
-      "reason": "Inconclusive: median 121s -> 117s, p=0.41; gain below 30s threshold",
-      "beforeSec": 121,
-      "afterSec": 117,
-      "runsPerWeek": 42,
-      "verdict": "inconclusive"
-    },
-    {
-      "at": "2026-10-22T16:56:53.056Z",
-      "opportunityId": "OPP-001",
-      "finding": "install is 25% of the critical path; npm cache misses on every run",
-      "decision": "Cache ~/.npm keyed on package-lock.json",
-      "reason": "Adopted: median 151s -> 36s over 12 vs 12 runs, p<0.001; coverage and test count unchanged",
-      "beforeSec": 151,
-      "afterSec": 36,
-      "runsPerWeek": 42,
-      "verdict": "adopt"
-    }
-  ],
-  "backlog": [
-    {
-      "hypothesis": "Cancel superseded runs on the same branch cuts queue time",
-      "targetMetric": "queue p50",
-      "expectedMinutesSavedPerWeek": 30,
-      "confidence": 0.9,
-      "effortHours": 0.5,
-      "risk": 0,
-      "estimatedChangedLines": 6,
-      "status": "queued",
-      "id": "OPP-006",
-      "title": "Cancel superseded runs on the same branch",
-      "technique": "concurrency",
-      "stage": "queue",
-      "score": 54
-    },
-    {
-      "hypothesis": "Quarantine flaky \"applies discount once\" test cuts unit time",
-      "targetMetric": "unit p50",
-      "expectedMinutesSavedPerWeek": 40,
-      "confidence": 0.8,
-      "effortHours": 1,
-      "risk": 0.5,
-      "estimatedChangedLines": 20,
-      "status": "queued",
-      "id": "OPP-005",
-      "title": "Quarantine flaky \"applies discount once\" test",
-      "technique": "flake-quarantine",
-      "stage": "unit",
-      "score": 21.33
-    },
-    {
-      "hypothesis": "Run e2e only after unit and integration pass in parallel shards cuts e2e time",
-      "targetMetric": "e2e p50",
-      "expectedMinutesSavedPerWeek": 105,
-      "confidence": 0.62,
-      "effortHours": 3,
-      "risk": 0.5,
-      "estimatedChangedLines": 60,
-      "status": "queued",
-      "id": "OPP-004",
-      "title": "Run e2e only after unit and integration pass in parallel shards",
-      "technique": "test-sharding",
-      "stage": "e2e",
-      "score": 14.47
-    },
-    {
-      "hypothesis": "Reuse build artifact in integration job cuts build time",
-      "targetMetric": "build p50",
-      "expectedMinutesSavedPerWeek": 50,
-      "confidence": 0.55,
-      "effortHours": 2,
-      "risk": 0.5,
-      "estimatedChangedLines": 45,
-      "status": "queued",
-      "id": "OPP-007",
-      "title": "Reuse build artifact in integration job",
-      "technique": "artifact-reuse",
-      "stage": "build",
-      "score": 9.17
-    }
-  ],
-  "flakyTests": [
-    {
-      "suite": "checkout",
-      "name": "applies discount once",
-      "failures": 39,
-      "passes": 39
-    }
-  ],
+  "decisions": [],
+  "backlog": [],
+  "flakyTests": [],
   "requirements": {
     "ok": true,
     "rows": [
@@ -828,10 +552,10 @@
     }
   },
   "agentHealth": {
-    "autonomyLevel": "L2",
-    "predictionErrorPct": 18,
-    "prAcceptanceRate": 0.67,
-    "costPerAdoptedChangeUsd": 1.9,
-    "lastReflection": "2026-11-26T16:56:53.056Z"
+    "autonomyLevel": "L0",
+    "predictionErrorPct": null,
+    "prAcceptanceRate": null,
+    "costPerAdoptedChangeUsd": null,
+    "lastReflection": null
   }
 }
