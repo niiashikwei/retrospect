@@ -1,0 +1,837 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-26T16:56:53.056Z",
+  "source": "sample",
+  "repos": [
+    "sample/web-app"
+  ],
+  "summary": {
+    "netHoursSavedPerWeek": 3.8,
+    "netHoursSavedAllTime": 8.7,
+    "grossHoursSavedPerWeek": 4.3,
+    "computeMinutesPerWeek": 800,
+    "criticalPathP50Sec": {
+      "baseline": 1065.6,
+      "now": 766.7
+    },
+    "criticalPathP90Sec": {
+      "baseline": 1126.3,
+      "now": 796
+    },
+    "coverage": {
+      "baseline": 86.4,
+      "now": 87.39702380952382
+    },
+    "runsAnalysed": 336
+  },
+  "timeseries": [
+    {
+      "period": "2026-09-28",
+      "runs": 20,
+      "p50Sec": 1065.6,
+      "p90Sec": 1126.3
+    },
+    {
+      "period": "2026-10-05",
+      "runs": 42,
+      "p50Sec": 1068,
+      "p90Sec": 1123.5
+    },
+    {
+      "period": "2026-10-12",
+      "runs": 42,
+      "p50Sec": 1043,
+      "p90Sec": 1172.6
+    },
+    {
+      "period": "2026-10-19",
+      "runs": 42,
+      "p50Sec": 995.7,
+      "p90Sec": 1122.8
+    },
+    {
+      "period": "2026-10-26",
+      "runs": 42,
+      "p50Sec": 937.6,
+      "p90Sec": 1006.9
+    },
+    {
+      "period": "2026-11-02",
+      "runs": 42,
+      "p50Sec": 932.9,
+      "p90Sec": 1082.2
+    },
+    {
+      "period": "2026-11-09",
+      "runs": 42,
+      "p50Sec": 856.2,
+      "p90Sec": 1010.8
+    },
+    {
+      "period": "2026-11-16",
+      "runs": 42,
+      "p50Sec": 750.6,
+      "p90Sec": 809.6
+    },
+    {
+      "period": "2026-11-23",
+      "runs": 22,
+      "p50Sec": 766.7,
+      "p90Sec": 796
+    }
+  ],
+  "savings": [
+    {
+      "period": "2026-09-28",
+      "netHours": -0.2
+    },
+    {
+      "period": "2026-10-05",
+      "netHours": -0.7
+    },
+    {
+      "period": "2026-10-12",
+      "netHours": -1.2
+    },
+    {
+      "period": "2026-10-19",
+      "netHours": -1.1
+    },
+    {
+      "period": "2026-10-26",
+      "netHours": -0.3
+    },
+    {
+      "period": "2026-11-02",
+      "netHours": 0.6
+    },
+    {
+      "period": "2026-11-09",
+      "netHours": 2.8
+    },
+    {
+      "period": "2026-11-16",
+      "netHours": 6.7
+    },
+    {
+      "period": "2026-11-23",
+      "netHours": 10.5
+    }
+  ],
+  "heatmap": {
+    "granularity": "week",
+    "periods": [
+      "2026-09-28",
+      "2026-10-05",
+      "2026-10-12",
+      "2026-10-19",
+      "2026-10-26",
+      "2026-11-02",
+      "2026-11-09",
+      "2026-11-16",
+      "2026-11-23"
+    ],
+    "stages": [
+      "unit",
+      "e2e",
+      "build",
+      "install",
+      "queue",
+      "integration"
+    ],
+    "minutes": [
+      [
+        141.4,
+        298.3,
+        289.4,
+        293.1,
+        297.4,
+        294.6,
+        153.3,
+        0,
+        0
+      ],
+      [
+        102.8,
+        210.6,
+        208.7,
+        208.6,
+        212.9,
+        210.2,
+        205.4,
+        210.6,
+        112
+      ],
+      [
+        38.7,
+        85.1,
+        84.2,
+        84.1,
+        82.4,
+        83.1,
+        86.1,
+        83.7,
+        44.5
+      ],
+      [
+        51.2,
+        105.3,
+        104.3,
+        66.5,
+        24.2,
+        24.8,
+        24.2,
+        24.1,
+        12.8
+      ],
+      [
+        24.4,
+        44,
+        57.2,
+        53,
+        43.5,
+        52.8,
+        54.4,
+        46.2,
+        26.2
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        81.5,
+        167,
+        88.8
+      ]
+    ]
+  },
+  "bottlenecks": [
+    {
+      "stage": "e2e",
+      "minutesPerWeek": 210,
+      "shareOfCriticalPath": 0.35,
+      "trend": "steady"
+    },
+    {
+      "stage": "unit",
+      "minutesPerWeek": 147.3,
+      "shareOfCriticalPath": 0.246,
+      "trend": "falling"
+    },
+    {
+      "stage": "integration",
+      "minutesPerWeek": 84.3,
+      "shareOfCriticalPath": 0.141,
+      "trend": "rising"
+    },
+    {
+      "stage": "build",
+      "minutesPerWeek": 84.1,
+      "shareOfCriticalPath": 0.14,
+      "trend": "steady"
+    },
+    {
+      "stage": "queue",
+      "minutesPerWeek": 50,
+      "shareOfCriticalPath": 0.083,
+      "trend": "steady"
+    },
+    {
+      "stage": "install",
+      "minutesPerWeek": 24.4,
+      "shareOfCriticalPath": 0.041,
+      "trend": "steady"
+    }
+  ],
+  "whereTimeGoes": [
+    {
+      "stage": "e2e",
+      "sec": 299.6
+    },
+    {
+      "stage": "integration",
+      "sec": 239.4
+    },
+    {
+      "stage": "build",
+      "sec": 121.6
+    },
+    {
+      "stage": "queue",
+      "sec": 72.1
+    },
+    {
+      "stage": "install",
+      "sec": 34.9
+    }
+  ],
+  "decisions": [
+    {
+      "at": "2026-11-12T16:56:53.056Z",
+      "opportunityId": "OPP-003",
+      "finding": "unit tests are the largest stage at 420s, single runner",
+      "decision": "Shard unit tests across 3 runners, balanced by measured duration",
+      "reason": "Adopted: median 418s -> 161s over 10 vs 10 runs, p<0.001; same tests, coverage held",
+      "beforeSec": 418,
+      "afterSec": 161,
+      "runsPerWeek": 42,
+      "verdict": "adopt"
+    },
+    {
+      "at": "2026-11-02T16:56:53.056Z",
+      "opportunityId": "OPP-002",
+      "finding": "docker layer cache proposed for build",
+      "decision": "Rejected Docker layer caching",
+      "reason": "Inconclusive: median 121s -> 117s, p=0.41; gain below 30s threshold",
+      "beforeSec": 121,
+      "afterSec": 117,
+      "runsPerWeek": 42,
+      "verdict": "inconclusive"
+    },
+    {
+      "at": "2026-10-22T16:56:53.056Z",
+      "opportunityId": "OPP-001",
+      "finding": "install is 25% of the critical path; npm cache misses on every run",
+      "decision": "Cache ~/.npm keyed on package-lock.json",
+      "reason": "Adopted: median 151s -> 36s over 12 vs 12 runs, p<0.001; coverage and test count unchanged",
+      "beforeSec": 151,
+      "afterSec": 36,
+      "runsPerWeek": 42,
+      "verdict": "adopt"
+    }
+  ],
+  "backlog": [
+    {
+      "hypothesis": "Cancel superseded runs on the same branch cuts queue time",
+      "targetMetric": "queue p50",
+      "expectedMinutesSavedPerWeek": 30,
+      "confidence": 0.9,
+      "effortHours": 0.5,
+      "risk": 0,
+      "estimatedChangedLines": 6,
+      "status": "queued",
+      "id": "OPP-006",
+      "title": "Cancel superseded runs on the same branch",
+      "technique": "concurrency",
+      "stage": "queue",
+      "score": 54
+    },
+    {
+      "hypothesis": "Quarantine flaky \"applies discount once\" test cuts unit time",
+      "targetMetric": "unit p50",
+      "expectedMinutesSavedPerWeek": 40,
+      "confidence": 0.8,
+      "effortHours": 1,
+      "risk": 0.5,
+      "estimatedChangedLines": 20,
+      "status": "queued",
+      "id": "OPP-005",
+      "title": "Quarantine flaky \"applies discount once\" test",
+      "technique": "flake-quarantine",
+      "stage": "unit",
+      "score": 21.33
+    },
+    {
+      "hypothesis": "Run e2e only after unit and integration pass in parallel shards cuts e2e time",
+      "targetMetric": "e2e p50",
+      "expectedMinutesSavedPerWeek": 105,
+      "confidence": 0.62,
+      "effortHours": 3,
+      "risk": 0.5,
+      "estimatedChangedLines": 60,
+      "status": "queued",
+      "id": "OPP-004",
+      "title": "Run e2e only after unit and integration pass in parallel shards",
+      "technique": "test-sharding",
+      "stage": "e2e",
+      "score": 14.47
+    },
+    {
+      "hypothesis": "Reuse build artifact in integration job cuts build time",
+      "targetMetric": "build p50",
+      "expectedMinutesSavedPerWeek": 50,
+      "confidence": 0.55,
+      "effortHours": 2,
+      "risk": 0.5,
+      "estimatedChangedLines": 45,
+      "status": "queued",
+      "id": "OPP-007",
+      "title": "Reuse build artifact in integration job",
+      "technique": "artifact-reuse",
+      "stage": "build",
+      "score": 9.17
+    }
+  ],
+  "flakyTests": [
+    {
+      "suite": "checkout",
+      "name": "applies discount once",
+      "failures": 39,
+      "passes": 39
+    }
+  ],
+  "requirements": {
+    "ok": true,
+    "rows": [
+      {
+        "requirement": "R-01",
+        "title": "Prioritised backlog of small batches",
+        "criterion": "R-01.1",
+        "then": "the one with more expected minutes saved times confidence, per hour of effort and risk, ranks higher",
+        "status": "validated",
+        "tests": [
+          "[R-01.1] higher saving x confidence per effort and risk ranks higher",
+          "[R-01.1] property: score never rises when effort or risk rises"
+        ]
+      },
+      {
+        "requirement": "R-01",
+        "title": "Prioritised backlog of small batches",
+        "criterion": "R-01.2",
+        "then": "it is left out of the ranking with a reason",
+        "status": "validated",
+        "tests": [
+          "[R-01.2] oversized or unclear items are left out with reasons"
+        ]
+      },
+      {
+        "requirement": "R-01",
+        "title": "Prioritised backlog of small batches",
+        "criterion": "R-01.3",
+        "then": "confidence is the Beta(1,1) posterior mean, 0.5 with no history",
+        "status": "validated",
+        "tests": [
+          "[R-01.3] technique confidence is the Beta(1,1) posterior mean"
+        ]
+      },
+      {
+        "requirement": "R-01",
+        "title": "Prioritised backlog of small batches",
+        "criterion": "R-01.4",
+        "then": "only queued items are ranked, and ties are broken by id",
+        "status": "validated",
+        "tests": [
+          "[R-01.4] only queued items rank and ties break by id"
+        ]
+      },
+      {
+        "requirement": "R-01",
+        "title": "Prioritised backlog of small batches",
+        "criterion": "R-01.5",
+        "then": "scoring throws instead of producing a misleading number",
+        "status": "validated",
+        "tests": [
+          "[R-01.5] invalid scoring inputs throw"
+        ]
+      },
+      {
+        "requirement": "R-02",
+        "title": "Monitors implementation, testing and resource use",
+        "criterion": "R-02.1",
+        "then": "each finished job becomes a signal with stage, queue time, duration and runner minutes",
+        "status": "validated",
+        "tests": [
+          "[R-02.1] finished jobs become signals with stage, timings and runner minutes",
+          "[R-02.1] unknown conclusions are normalised and very short jobs bill one minute"
+        ]
+      },
+      {
+        "requirement": "R-02",
+        "title": "Monitors implementation, testing and resource use",
+        "criterion": "R-02.2",
+        "then": "seen runs are skipped, unfinished jobs are ignored and results are paged",
+        "status": "validated",
+        "tests": [
+          "[R-02.2] collect appends only new runs to the data branch",
+          "[R-02.2] seen runs are skipped, unfinished jobs ignored, results paged",
+          "[R-02.2] paging stops at the page limit"
+        ]
+      },
+      {
+        "requirement": "R-02",
+        "title": "Monitors implementation, testing and resource use",
+        "criterion": "R-02.3",
+        "then": "every test case yields its suite, name, duration and outcome",
+        "status": "validated",
+        "tests": [
+          "[R-02.3] JUnit cases yield suite, name, duration and outcome"
+        ]
+      },
+      {
+        "requirement": "R-02",
+        "title": "Monitors implementation, testing and resource use",
+        "criterion": "R-02.4",
+        "then": "line and branch coverage percentages are summed across files",
+        "status": "validated",
+        "tests": [
+          "[R-02.4] lcov coverage is summed across files"
+        ]
+      },
+      {
+        "requirement": "R-02",
+        "title": "Monitors implementation, testing and resource use",
+        "criterion": "R-02.5",
+        "then": "the error is raised, never silently ignored",
+        "status": "validated",
+        "tests": [
+          "[R-02.5] GitHub API errors are raised",
+          "[R-02.5] the default fetch client passes headers and status through"
+        ]
+      },
+      {
+        "requirement": "R-02",
+        "title": "Monitors implementation, testing and resource use",
+        "criterion": "R-02.6",
+        "then": "common names map to standard stages and per-repo overrides win",
+        "status": "validated",
+        "tests": [
+          "[R-02.6] job names map to standard stages and overrides win"
+        ]
+      },
+      {
+        "requirement": "R-03",
+        "title": "Never reduces quality or test coverage",
+        "criterion": "R-03.1",
+        "then": "a drop of more than 0.1 points fails",
+        "status": "validated",
+        "tests": [
+          "[R-03.1] coverage drops beyond 0.1 points fail"
+        ]
+      },
+      {
+        "requirement": "R-03",
+        "title": "Never reduces quality or test coverage",
+        "criterion": "R-03.2",
+        "then": "fewer tests fails unless the PR declares that many exact duplicates",
+        "status": "validated",
+        "tests": [
+          "[R-03.2] fewer tests fail unless declared as duplicates"
+        ]
+      },
+      {
+        "requirement": "R-03",
+        "title": "Never reduces quality or test coverage",
+        "criterion": "R-03.3",
+        "then": "each offending line fails with its file and text",
+        "status": "validated",
+        "tests": [
+          "[R-03.3] skipped tests and removed assertions in test files fail"
+        ]
+      },
+      {
+        "requirement": "R-03",
+        "title": "Never reduces quality or test coverage",
+        "criterion": "R-03.4",
+        "then": "a lower score fails; an unmeasured change is noted, not failed",
+        "status": "validated",
+        "tests": [
+          "[R-03.4] a lower mutation score fails; unmeasured is noted"
+        ]
+      },
+      {
+        "requirement": "R-03",
+        "title": "Never reduces quality or test coverage",
+        "criterion": "R-03.5",
+        "then": "the verdict is reject, listing the failed guardrails",
+        "status": "validated",
+        "tests": [
+          "[R-03.5] a faster change that fails a guardrail is rejected"
+        ]
+      },
+      {
+        "requirement": "R-04",
+        "title": "Notion as a second brain",
+        "criterion": "R-04.1",
+        "then": "it appears in the matching Notion database",
+        "status": "planned",
+        "tests": []
+      },
+      {
+        "requirement": "R-04",
+        "title": "Notion as a second brain",
+        "criterion": "R-04.2",
+        "then": "the override wins over the computed score",
+        "status": "planned",
+        "tests": []
+      },
+      {
+        "requirement": "R-05",
+        "title": "Public repo on a personal GitHub account",
+        "criterion": "R-05.1",
+        "then": "it has an MIT LICENSE, a README and a CODEOWNERS file",
+        "status": "validated",
+        "tests": [
+          "[R-05.1] the repo has an MIT licence, a README and CODEOWNERS"
+        ]
+      },
+      {
+        "requirement": "R-05",
+        "title": "Public repo on a personal GitHub account",
+        "criterion": "R-05.2",
+        "then": "it type-checks, runs every test with the coverage gate, and runs the traceability check",
+        "status": "validated",
+        "tests": [
+          "[R-05.2] CI typechecks, runs the coverage-gated tests and the trace check on push and PR"
+        ]
+      },
+      {
+        "requirement": "R-05",
+        "title": "Public repo on a personal GitHub account",
+        "criterion": "R-05.3",
+        "then": "none run on pull_request_target, so fork PRs never reach secrets",
+        "status": "validated",
+        "tests": [
+          "[R-05.3] no workflow runs on pull_request_target"
+        ]
+      },
+      {
+        "requirement": "R-06",
+        "title": "Live dashboard of findings, decisions and savings",
+        "criterion": "R-06.1",
+        "then": "it passes the versioned data contract the page relies on",
+        "status": "validated",
+        "tests": [
+          "[R-06.1] report builds a valid dashboard.json from the data branch",
+          "[R-06.1] an invalid dashboard is never written",
+          "[R-06.1] dashboard.json built from signals passes the data contract",
+          "[R-06.1] an empty dataset still produces a valid dashboard",
+          "[R-06.1] contract violations are reported",
+          "[R-06.1] JSONL store appends and reads back, tolerating missing files"
+        ]
+      },
+      {
+        "requirement": "R-06",
+        "title": "Live dashboard of findings, decisions and savings",
+        "criterion": "R-06.2",
+        "then": "it has one row per stage, hottest first, and one column per week, so past and present bottlenecks show",
+        "status": "validated",
+        "tests": [
+          "[R-06.2] the heat map has a row per stage, hottest first, and a column per period",
+          "[R-06.2] the dashboard heat map shows past and current weeks for every stage"
+        ]
+      },
+      {
+        "requirement": "R-06",
+        "title": "Live dashboard of findings, decisions and savings",
+        "criterion": "R-06.3",
+        "then": "each decision carries its finding, decision, reason and before and after numbers, newest first",
+        "status": "validated",
+        "tests": [
+          "[R-06.3] decisions carry finding, decision, reason and before/after, newest first"
+        ]
+      },
+      {
+        "requirement": "R-06",
+        "title": "Live dashboard of findings, decisions and savings",
+        "criterion": "R-06.4",
+        "then": "only adopted decisions count, on the critical path, net of overhead",
+        "status": "validated",
+        "tests": [
+          "[R-06.4] only adopted decisions count, net of overhead"
+        ]
+      },
+      {
+        "requirement": "R-06",
+        "title": "Live dashboard of findings, decisions and savings",
+        "criterion": "R-06.5",
+        "then": "it has a panel for every section of dashboard.json and re-fetches it every 60 seconds",
+        "status": "validated",
+        "tests": [
+          "[R-06.5] the dashboard page has a panel per section and refreshes every 60 seconds"
+        ]
+      },
+      {
+        "requirement": "R-06",
+        "title": "Live dashboard of findings, decisions and savings",
+        "criterion": "R-06.6",
+        "then": "it runs through the same pipeline and is labelled as sample data",
+        "status": "validated",
+        "tests": [
+          "[R-06.6] sample writes a sample-labelled dashboard",
+          "[R-06.6] sample data runs through the real pipeline and is labelled sample"
+        ]
+      },
+      {
+        "requirement": "R-07",
+        "title": "Retrospects on itself daily",
+        "criterion": "R-07.1",
+        "then": "Retrospect watches its own repo",
+        "status": "validated",
+        "tests": [
+          "[R-07.1] by default Retrospect watches its own repo"
+        ]
+      },
+      {
+        "requirement": "R-07",
+        "title": "Retrospects on itself daily",
+        "criterion": "R-07.2",
+        "then": "a retro is written with prediction error, acceptance rate and cost, and at most one self-improvement is proposed",
+        "status": "planned",
+        "tests": []
+      },
+      {
+        "requirement": "R-07",
+        "title": "Retrospects on itself daily",
+        "criterion": "R-07.3",
+        "then": "CODEOWNERS requires the owner's review",
+        "status": "validated",
+        "tests": [
+          "[R-07.3] guardrails, requirements, scoring and config need the owner's review"
+        ]
+      },
+      {
+        "requirement": "R-08",
+        "title": "Finds where the bottlenecks are and have been",
+        "criterion": "R-08.1",
+        "then": "it is the chain of jobs a developer waited on, with runner waits counted as queue time",
+        "status": "validated",
+        "tests": [
+          "[R-08.1] the critical path follows the chain a developer waited on, with queue waits",
+          "[R-08.1] a single job that starts at once has no queue segment; empty input throws",
+          "[R-08.1] runs are grouped by attempt, skipped jobs dropped, ordered by start"
+        ]
+      },
+      {
+        "requirement": "R-08",
+        "title": "Finds where the bottlenecks are and have been",
+        "criterion": "R-08.2",
+        "then": "stages are ordered by minutes per week with their share and trend",
+        "status": "validated",
+        "tests": [
+          "[R-08.2] bottlenecks rank by minutes per week with share and trend"
+        ]
+      },
+      {
+        "requirement": "R-08",
+        "title": "Finds where the bottlenecks are and have been",
+        "criterion": "R-08.3",
+        "then": "a test that passed and failed on the same commit is flagged",
+        "status": "validated",
+        "tests": [
+          "[R-08.3] a test that passed and failed on the same commit is flaky"
+        ]
+      },
+      {
+        "requirement": "R-09",
+        "title": "Every speed-up is proven, not guessed",
+        "criterion": "R-09.1",
+        "then": "the verdict is inconclusive",
+        "status": "validated",
+        "tests": [
+          "[R-09.1] fewer than 10 runs per arm is inconclusive"
+        ]
+      },
+      {
+        "requirement": "R-09",
+        "title": "Every speed-up is proven, not guessed",
+        "criterion": "R-09.2",
+        "then": "adopt needs p < 0.05 and a median gain of at least 30 s and 5%",
+        "status": "validated",
+        "tests": [
+          "[R-09.2] adopt needs p < 0.05 and a gain of at least 30s and 5%"
+        ]
+      },
+      {
+        "requirement": "R-09",
+        "title": "Every speed-up is proven, not guessed",
+        "criterion": "R-09.3",
+        "then": "the verdict is reject",
+        "status": "validated",
+        "tests": [
+          "[R-09.3] a significantly slower treatment is rejected"
+        ]
+      },
+      {
+        "requirement": "R-09",
+        "title": "Every speed-up is proven, not guessed",
+        "criterion": "R-09.4",
+        "then": "U and the tie-corrected p-value match known results",
+        "status": "validated",
+        "tests": [
+          "[R-09.4] Mann-Whitney U and p match known results",
+          "[R-09.4] median and percentile are correct at the edges"
+        ]
+      },
+      {
+        "requirement": "R-10",
+        "title": "Full test coverage and traceability on every change",
+        "criterion": "R-10.1",
+        "then": "it fails and names the criterion",
+        "status": "validated",
+        "tests": [
+          "[R-10.1] an active criterion with no passing test fails the check",
+          "[R-10.1] planned requirements and planned criteria are tracked but not enforced",
+          "[R-10.1] every requirement in this repo is well formed"
+        ]
+      },
+      {
+        "requirement": "R-10",
+        "title": "Full test coverage and traceability on every change",
+        "criterion": "R-10.2",
+        "then": "it fails and names the test",
+        "status": "validated",
+        "tests": [
+          "[R-10.2] a test tagged with an unknown criterion fails the check"
+        ]
+      },
+      {
+        "requirement": "R-10",
+        "title": "Full test coverage and traceability on every change",
+        "criterion": "R-10.3",
+        "then": "it fails with the problem",
+        "status": "validated",
+        "tests": [
+          "[R-10.3] malformed or duplicated requirements fail"
+        ]
+      },
+      {
+        "requirement": "R-10",
+        "title": "Full test coverage and traceability on every change",
+        "criterion": "R-10.4",
+        "then": "lines, branches and functions must all be 100% covered on src/",
+        "status": "validated",
+        "tests": [
+          "[R-10.4] the test runner enforces 100% line, branch and function coverage on src/"
+        ]
+      },
+      {
+        "requirement": "R-10",
+        "title": "Full test coverage and traceability on every change",
+        "criterion": "R-10.5",
+        "then": "the criterion is marked failing",
+        "status": "validated",
+        "tests": [
+          "[R-10.5] a failing test marks its criterion failing",
+          "[R-10.5] TAP parsing reads nested tests, skips and todos, and ignores suites"
+        ]
+      },
+      {
+        "requirement": "R-10",
+        "title": "Full test coverage and traceability on every change",
+        "criterion": "R-10.6",
+        "then": "reports/trace.json and reports/trace.md show every criterion's status",
+        "status": "validated",
+        "tests": [
+          "[R-10.6] unknown commands print usage",
+          "[R-10.6] the matrix is written to reports/trace.json and trace.md"
+        ]
+      }
+    ],
+    "totals": {
+      "validated": 40,
+      "failing": 0,
+      "untested": 0,
+      "planned": 3
+    }
+  },
+  "agentHealth": {
+    "autonomyLevel": "L2",
+    "predictionErrorPct": 18,
+    "prAcceptanceRate": 0.67,
+    "costPerAdoptedChangeUsd": 1.9,
+    "lastReflection": "2026-11-26T16:56:53.056Z"
+  }
+}
