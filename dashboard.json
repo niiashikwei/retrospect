@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-28T06:30:32.375Z",
+  "generatedAt": "2026-11-28T07:22:17.794Z",
   "source": "live",
   "repos": [
     "niiashikwei/retrospect"
@@ -9,27 +9,27 @@
     "netHoursSavedPerWeek": 0,
     "netHoursSavedAllTime": 0,
     "grossHoursSavedPerWeek": 0,
-    "computeMinutesPerWeek": 41,
+    "computeMinutesPerWeek": 42,
     "criticalPathP50Sec": {
       "baseline": 21,
       "now": 21
     },
     "criticalPathP90Sec": {
-      "baseline": 25.1,
-      "now": 25.1
+      "baseline": 25,
+      "now": 25
     },
     "coverage": {
       "baseline": null,
       "now": null
     },
-    "runsAnalysed": 40
+    "runsAnalysed": 41
   },
   "timeseries": [
     {
       "period": "2026-11-23",
-      "runs": 40,
+      "runs": 41,
       "p50Sec": 21,
-      "p90Sec": 25.1
+      "p90Sec": 25
     }
   ],
   "savings": [
@@ -50,7 +50,7 @@
     ],
     "minutes": [
       [
-        11
+        11.4
       ],
       [
         2.8
@@ -64,19 +64,19 @@
     {
       "stage": "other",
       "minutesPerWeek": 2.8,
-      "shareOfCriticalPath": 0.791,
+      "shareOfCriticalPath": 0.792,
       "trend": "rising"
     },
     {
       "stage": "queue",
       "minutesPerWeek": 0.7,
-      "shareOfCriticalPath": 0.198,
+      "shareOfCriticalPath": 0.197,
       "trend": "rising"
     },
     {
       "stage": "typecheck",
       "minutesPerWeek": 0,
-      "shareOfCriticalPath": 0.011,
+      "shareOfCriticalPath": 0.01,
       "trend": "rising"
     }
   ],
@@ -87,7 +87,7 @@
     },
     {
       "stage": "queue",
-      "sec": 4.2
+      "sec": 4.1
     },
     {
       "stage": "typecheck",
