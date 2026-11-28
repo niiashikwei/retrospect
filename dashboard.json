@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-28T05:22:26.172Z",
+  "generatedAt": "2026-11-28T06:30:32.375Z",
   "source": "live",
   "repos": [
     "niiashikwei/retrospect"
@@ -9,27 +9,27 @@
     "netHoursSavedPerWeek": 0,
     "netHoursSavedAllTime": 0,
     "grossHoursSavedPerWeek": 0,
-    "computeMinutesPerWeek": 40,
+    "computeMinutesPerWeek": 41,
     "criticalPathP50Sec": {
       "baseline": 21,
       "now": 21
     },
     "criticalPathP90Sec": {
-      "baseline": 25.2,
-      "now": 25.2
+      "baseline": 25.1,
+      "now": 25.1
     },
     "coverage": {
       "baseline": null,
       "now": null
     },
-    "runsAnalysed": 39
+    "runsAnalysed": 40
   },
   "timeseries": [
     {
       "period": "2026-11-23",
-      "runs": 39,
+      "runs": 40,
       "p50Sec": 21,
-      "p90Sec": 25.2
+      "p90Sec": 25.1
     }
   ],
   "savings": [
@@ -50,10 +50,10 @@
     ],
     "minutes": [
       [
-        10.8
+        11
       ],
       [
-        2.7
+        2.8
       ],
       [
         0.2
@@ -63,7 +63,7 @@
   "bottlenecks": [
     {
       "stage": "other",
-      "minutesPerWeek": 2.7,
+      "minutesPerWeek": 2.8,
       "shareOfCriticalPath": 0.791,
       "trend": "rising"
     },
